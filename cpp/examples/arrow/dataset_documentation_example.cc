@@ -153,6 +153,9 @@ arrow::Result<std::string> CreateExampleParquetHivePartitionedDataset(
   write_options.base_dir = base_path;
   write_options.partitioning = partitioning;
   write_options.basename_template = "part{i}.parquet";
+  write_options.max_open_files = 2;
+  write_options.max_rows_per_file = 2;
+  write_options.max_rows_per_group = 2;
   ARROW_RETURN_NOT_OK(ds::FileSystemDataset::Write(write_options, scanner));
   return base_path;
 }
